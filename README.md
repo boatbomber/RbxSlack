@@ -2,6 +2,14 @@
 
 RbxSlack is a module for interacting with Slack APIs from Roblox. It provides a generic `CallAPI` method that supports all the Slack web methods [here](https://api.slack.com/methods), as well as some functions for the common methods to make usage easier, such as `SendMessage`.
 
+## Installation
+
+**Wally:**
+```toml
+[server-dependencies]
+RbxSlack = "boatbomber/rbxslack@0.1.0"
+```
+
 ## Example Usage
 
 ```Lua
