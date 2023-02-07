@@ -45,16 +45,25 @@ function HttpUtils.request(auth: string, api: string, method: string, data: {any
 		Url = "https://slack.com/api/" .. api .. "?" .. HttpUtils.encode(data),
 	}
 
-	local success, response = pcall(HttpService.RequestAsync, HttpService, payload)
-	if not success then
-		return false, response
+	local requestSuccess, requestResponse = pcall(HttpService.RequestAsync, HttpService, payload)
+	if not requestSuccess then
+		return false, requestResponse
 	end
 
-	if not response.Success then
-		return false, "HTTP " .. response.StatusCode .. ": " .. response.StatusMessage
+	if not requestResponse.Success then
+		return false, "HTTP " .. requestResponse.StatusCode .. ": " .. requestResponse.StatusMessage
 	end
 
-	return pcall(HttpService.JSONDecode, HttpService, response.Body)
+	local decodeSuccess, decodeResponse = pcall(HttpService.JSONDecode, HttpService, requestResponse.Body)
+	if not decodeSuccess then
+		return false, decodeResponse
+	end
+
+	if not decodeResponse.ok then
+		return false, decodeResponse.error
+	end
+
+	return true, decodeResponse
 end
 
 return HttpUtils
