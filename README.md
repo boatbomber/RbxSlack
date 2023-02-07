@@ -16,9 +16,9 @@ RbxSlack = "boatbomber/rbxslack@0.1.0"
 local Packages = game:GetService("ServerStorage"):WaitForChild("Packages")
 local RbxSlack = require(Packages:WaitForChild("RbxSlack"))
 
-local MyBot = RbxSlack.new("MyBotAuthToken")
+local MyBot = RbxSlack.new("Bearer MyBotAuthToken")
 
-RbxSlack:SendMessage({
+MyBot:SendMessage({
 	channel = "channelIdHere",
 	text = "Hello world!",
 })
